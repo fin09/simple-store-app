@@ -16,42 +16,43 @@ class Api {
     }
   }
 
-Future<dynamic> post({
-  required String url,
-  required dynamic body,
-  String? token, 
-  required Map<String, String> headers,
-}) async {
-  Map<String, String> headers = {};
+  Future<dynamic> post({
+    required String url,
+    required dynamic body,
+    String? token,
+    required Map<String, String> headers,
+  }) async {
+    Map<String, String> headers = {};
 
-  if (token != null) {
-    headers['Authorization'] = 'Bearer $token';
+    if (token != null) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    try {
+      Response response = await dio.post(
+        url,
+        data: body,
+        options: Options(headers: headers),
+      );
+
+      return response.data;
+    } on DioException catch (e) {
+      throw Exception(
+        'Problem with status code ${e.response?.statusCode} '
+        'and body ${e.response?.data}',
+      );
+    }
   }
-
-  try {
-    Response response = await dio.post(
-      url,
-      data: body,
-      options: Options(headers: headers),
-    );
-
-    return response.data;
-  } on DioException catch (e) {
-    throw Exception(
-      'Problem with status code ${e.response?.statusCode} '
-      'and body ${e.response?.data}',
-    );
-  }
-}
 
   Future<dynamic> put({
     required String url,
     required dynamic body,
     Map<String, String>? headers,
+    required String id,
   }) async {
     try {
       Response response = await dio.put(
-        url,
+        '$url/$id',
         data: body,
         options: Options(headers: headers),
       );

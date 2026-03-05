@@ -3,7 +3,7 @@ class ProductModel {
   final String title;
   final double price;
   final String description;
-  final int category_id;
+  final int categoryId;
   final String image;
   final String category;
   final RatingModel rating;
@@ -13,7 +13,7 @@ class ProductModel {
     required this.title,
     required this.price,
     required this.description,
-    required this.category_id,
+    required this.categoryId,
     required this.image,
     required this.category,
     required this.rating,
@@ -24,7 +24,7 @@ class ProductModel {
       title: json['title'],
       price: (json['price'] as num).toDouble(),
       description: json['description'],
-      category_id: json['category_id'],
+      categoryId: json['category_id'],
       image: json['image'],
       category: json['category'],
       rating: RatingModel.fromJson(json['rating']),

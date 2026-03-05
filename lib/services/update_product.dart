@@ -7,9 +7,11 @@ class UpdateProductService {
     required String price,
     required String description,
     required String image,
+    required productID,
     required String category,
   }) async {
     return await api.put(
+      id: productID.toString(),
       url: 'http://10.0.2.2:3000/products',
       body: {
         'title': title,
@@ -17,6 +19,10 @@ class UpdateProductService {
         'description': description,
         'image': image,
         'category': category,
+        'rating': {
+          'rate': 4.5,
+          'count': 100,
+        },
       },
       headers: {
         'Accept': 'application/json',
